@@ -8,6 +8,7 @@ var vexbot	= new Discord.Client({
 	autorun: true
 });
 
+// Document?
 // Make all of our commands as variables to make code as modular as possible.
 var commandChar 	= "|";
 var vexDBCommand	= commandChar + " VEXDB TEAM";
