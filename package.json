@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/HFreni/VEXCord-Bot/issues"
   },
-  "homepage": "https://github.com/HFreni/VEXCord-Bot#readme"
+  "homepage": "https://github.com/HFreni/VEXCord-Bot#readme",
+  "dependencies": {
+    "discord.js": "^8.0.0"
+  }
 }
