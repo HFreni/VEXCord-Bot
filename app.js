@@ -1,9 +1,10 @@
 // Your run of the mill imports!
-var Discord = require("discord.io");
+var Discord 	= require("discord.io");
+var API_TOKEN 	= "";
 
 // This is our auth token, and it's going on github :D
 var vexbot	= new Discord.Client({
-	token: "MTk4MTE5MTA0NDkyNzMyNDE2.ClbgSw.UhlPpN-LlwwiKvyRfllQ7i9dtd0",
+	token: API_TOKEN,
 	autorun: true
 });
 
@@ -29,7 +30,7 @@ vexbot.on('message', function(user, userID, channelID, message, event) {
 	// Make this more dynamic.
 
 	// Unfinished command to search for user input and then call vexDB
-	if(message.search(vexDBCommand)) {
+	if(message.includes(vexDBCommand)) {
 		console.log("It worked");
 		bot.sendMessage({
 			to: channelID,
