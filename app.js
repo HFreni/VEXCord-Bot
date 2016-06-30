@@ -12,7 +12,7 @@ var vexbot	= new Discord.Client({
 // Make all of our commands as variables to make code as modular as possible.
 var commandChar 	= "|";
 var vexDBCommand	= commandChar + " VEXDB TEAM";
-
+var musicCommand	= commandChar + " queue";
 
 // Initialization command.
 // This lets us know that the bot has connected to the discord server,
