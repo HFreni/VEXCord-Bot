@@ -6,6 +6,10 @@ var vexbot	= new Discord.Client({
 
 vexbot.on('ready', function() {
 	console.log(vexbot.username + " -  ( " + vexbot.id + ")" );
+	vexbot.setPresence({
+		idle_since: null,
+		game: "Harri is a gud programmer"
+	});
 });
 
 vexbot.on('message', function(user, userID, channelID, message, event) {
@@ -13,6 +17,12 @@ vexbot.on('message', function(user, userID, channelID, message, event) {
 		vexbot.sendMessage({
 			to: channelID,
 			message: "pong"
+		});
+		vexbot.uploadFile({
+			to: channelID,
+			file: "dank.jpg",
+			filename: "mankdemes.jpg",
+			message: "What a good meme"
 		});
 		console.log("Message Recieved")
 	}
