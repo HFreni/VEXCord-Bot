@@ -1,6 +1,6 @@
 // Your run of the mill imports!
 var Discord 	= require("discord.io");
-var API_TOKEN 	= "";
+var API_TOKEN 	= process.env.API_KEY;
 
 // This is our auth token, and it's going on github :D
 var vexbot	= new Discord.Client({
