@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/HFreni/VEXCord-Bot#readme",
   "dependencies": {
-    "discord.js": "^8.0.0"
+    "discord.io": "^1.12.0"
   }
 }
