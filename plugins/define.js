@@ -1,7 +1,7 @@
-var http 		= require('https');
-//var startsWith 	= require('string.prototype.startswith');
+var http = require('https');
 
-// Stealing Andre's Code Cuz Why Not?!?
+// This is the HTTP Request Method
+// It grabs data from the mashape API for UD
 var definitionGet = function(url, cb) {
 	var options = {
 		host: 'mashape-community-urban-dictionary.p.mashape.com',
@@ -23,6 +23,8 @@ var definitionGet = function(url, cb) {
 	req.end();
 };
 
+// Not the cleanest code, but it checks to see if a string is a
+// vowel or not.
 var vowelTest = function(s) {
 	var check;
 	var str = s.toUpperCase();
@@ -34,6 +36,8 @@ var vowelTest = function(s) {
 	return check;
 };
 
+// This is the main command, It has basic error handling, and works well
+// It prints out the first result from urban dictionary.
 vexBot.commands.define = function(data) {
 	definitionGet("define?term=" + encodeURIComponent(data.message), function(err, definition) {
 		var d = definition.list[0];
