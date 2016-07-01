@@ -11,11 +11,12 @@ vexBot = {
 	commandPrefix: ".",
 	// Synax:
 	// vexBot.commands.foo = function(data) {...};
-	//     data.message: The parameters sent to the command    
-	//     data.name:    The user's name
-	//     data.id:      The user's ID
-	//     data.channel: The channel's ID
-	//     data.event:   Raw JSON event
+	//     data.message:    The parameters sent to the command    
+	//     data.respond(s): Respond to the user
+	//     data.name:       The user's name
+	//     data.id:         The user's ID
+	//     data.channel:    The channel's ID
+	//     data.event:      Raw JSON event
 	commands: [],
 	plugins: {}
 }
@@ -58,7 +59,6 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 		while (msg.length > 0 && msg.substring(0, 1) != " ") {
 			cmd += msg.substring(0, 1);
 			msg = msg.substring(1);
-			console.log(msg.length);
 		}
 		// Mobile keyboards automatically capitalize
 		cmd = cmd.toLowerCase();
@@ -77,7 +77,13 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 				name:    user,
 				id:      userID,
 				channel: channelID,
-				event:   event
+				event:   event,
+				respond: function(result) {
+					vexBot.client.sendMessage({
+						to: channelID,
+						message: user + ", " + result
+					});
+				}
 			});
 			if (result) {
 				console.log("responding")
