@@ -1,29 +1,16 @@
 var http = require('http');
+var unirest = require('unirest');
 
 var vexdbGet = function(url, cb) {
-	var options = {
-		host: 'api.vexdb.io',
-		path: '/v1/' + url,
-		headers: {'User-Agent': 'RoBot v1.0.0 git.io/vohPQ'}
-	};
-
-	console.log("requesting \"" + options.path + "\"");
-
-	callback = function(response) {
-		var str = '';
-		response.on('data', function(chunk) {
-			str += chunk;
+	var req = unirest.get("http://api.vexdb.io/v1/" + url)
+		.headers({'User-Agent': 'RoBot v1.0.0 git.io/vohPQ'})
+		.end(function(res) {
+			if (res.statusType != 2) {
+				cb(false, res.code);
+			} else {
+				cb(true, JSON.parse(res.raw_body));
+			}
 		});
-
-		response.on('end', function () {
-			console.log(str);
-			cb(true, JSON.parse(str));
-		});
-		// why the @#$% isnt there a documented way of checking if it errors?
-	}
-
-	var req = http.request(options, callback);
-	req.end();
 };
 
 vexBot.commands.vexdbraw = function(data) {

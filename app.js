@@ -68,10 +68,8 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 			msg = msg.substring(1);
 		}
 
-		console.log("command \"" + cmd + "\"")
-
 		if (cmd in vexBot.commands) {
-			console.log("got command!")
+			console.log(user + " used \"" + cmd + "\"");
 			var result = vexBot.commands[cmd]({
 				message: msg,
 				name:    user,
@@ -86,7 +84,6 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 				}
 			});
 			if (result) {
-				console.log("responding")
 				vexBot.client.sendMessage({
 					to: channelID,
 					message: user + ", " + result
@@ -99,6 +96,6 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 // Load all of our plugins
 var normalizedPath = require("path").join(__dirname, "plugins");
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
-	// If a plugin wants to expose an API of some sort, we plugins into vexBot.plugins[name]
+	// If a plugin wants to expose an API of some sort, we put plugins into vexBot.plugins[name]
 	vexBot.plugins[file.substr(0, file.lastIndexOf('.'))] = require("./plugins/" + file);
 });
