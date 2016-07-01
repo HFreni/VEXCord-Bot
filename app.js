@@ -55,7 +55,7 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 		}
 
 		var cmd = '';
-		while (message.length > 0 && !message.startsWith(' ')) {
+		while (message.length > 0 && !msg.startsWith(' ')) {
 			cmd += msg.substring(0, 1);
 			msg = msg.substring(1);
 		}
