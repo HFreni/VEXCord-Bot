@@ -1,26 +1,18 @@
-var http = require('https');
+var unirest = require('unirest');
 
 // This is the HTTP Request Method
 // It grabs data from the mashape API for UD
 var definitionGet = function(url, cb) {
-	var options = {
-		host: 'mashape-community-urban-dictionary.p.mashape.com',
-		path: '/' + url,
-		headers: {"X-Mashape-Key": "WNsTcdAjW7mshAv0v8SOWo3FvoMgp1uUmXVjsn9FMLyYz4TCYN", "Accept" : "text/plain"}
-	};
-	console.log("requesting \"" + options.path + "\"");
-	callback = function(response) {
-		var str = '';
-		response.on('data', function(chunk) {
-			str += chunk;
-		});
-		response.on('end', function () {
-			console.log(str);
-			cb(true, JSON.parse(str));
-		});
-	};
-	var req = http.request(options, callback);
-	req.end();
+	var req = unirest.get("https://mashape-community-urban-dictionary.p.mashape.com/define?term=wat")
+	.header("X-Mashape-Key", "2pRdiWPGH4mshPKKrehog6ntaVLCp1T7apvjsnq2zGRHATCGBl")
+	.header("Accept", "text/plain")
+	.end(function(res) {
+		if (res.statusType != 2) {
+			cb(false, res.code);
+		} else {
+			cb(true, JSON.parse(res.raw_body));
+		}
+	});
 };
 
 // Not the cleanest code, but it checks to see if a string is a
