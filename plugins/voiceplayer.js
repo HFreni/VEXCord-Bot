@@ -1,16 +1,12 @@
 var channelID = "197818048147750912";
 
-var userChan = function() {
-
-};
-
 vexBot.commands.playMusic = function(data) {
   vexBot.joinVoiceChannel(channelID, function() {
     vexBot.getAudioContext({ channel: channelID, stereo: true}, function(stream) {
       stream.playAudioFile(data); //To start playing an audio file, will stop when it's done.
       /* Put Stuff Here */
     });
-  };
+  });
 };
 
 /*
