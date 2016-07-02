@@ -3,7 +3,7 @@ var unirest = require('unirest');
 // This is the HTTP Request Method
 // It grabs data from the mashape API for UD
 var definitionGet = function(url, cb) {
-	var req = unirest.get("https://mashape-community-urban-dictionary.p.mashape.com/define?term=wat")
+	var req = unirest.get("https://mashape-community-urban-dictionary.p.mashape.com/" + url)
 	.header("X-Mashape-Key", "2pRdiWPGH4mshPKKrehog6ntaVLCp1T7apvjsnq2zGRHATCGBl")
 	.header("Accept", "text/plain")
 	.end(function(res) {

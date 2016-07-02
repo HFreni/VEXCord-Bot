@@ -9,6 +9,8 @@ var memes = [
 	"Vex forum Q&A",
 	"How2Grill",
 	"Not Kyle",
+	"Vex Memes",
+	"BNS 3 Way",
 ]
 
 function rand(min, max) {
