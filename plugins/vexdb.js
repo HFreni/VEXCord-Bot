@@ -19,20 +19,23 @@ vexBot.commands.vexdbraw = function(data) {
 	})
 }
 
-vexBot.commands.teaminfo = function(data) {
+vexBot.commands.team = function(data) {
 	data.message = data.message.toUpperCase()
 	vexdbGet("get_teams?team=" + encodeURIComponent(data.message), function(err, team_info) {
-		if (team_info.status != 1 || !err) {
+		if (team_info.status != 1 || !err || !team_info.result[0]) {
 			data.respond("Could not find team");
 		} else {
 			var t = team_info.result[0];
 			data.respond(
-				"Team #" + data.message + "\n" +
-				"From: " + t.city + "," + t.region + "," + t.country
+				"Team #" + data.message + " \"" + t.team_name + "\"\n" +
+				"From: " + t.city + "," + t.region + "," + t.country + "\n" +
+				"Organisation: " + t.organisation
 			);
 		}
 	})
 }
+vexBot.commandUsage.team = "<team number>";
+vexBot.commandDescs.team = "Gets information about a team";
 
 vexBot.commands.score = function(data) {
 	data.message = data.message.toUpperCase()
@@ -71,6 +74,8 @@ vexBot.commands.score = function(data) {
 		}
 	)
 }
+vexBot.commandUsage.score = "<team number>";
+vexBot.commandDescs.score = "Gets match score information about a team";
 
 var crypto = require('crypto');
 
@@ -109,3 +114,5 @@ vexBot.commands.skills = function(data) {
 		}
 	)
 }
+vexBot.commandUsage.skills = "<team number>";
+vexBot.commandDescs.skills = "Gets skills score information about a team";

@@ -17,7 +17,9 @@ vexBot = {
 	//     data.id:         The user's ID
 	//     data.channel:    The channel's ID
 	//     data.event:      Raw JSON event
-	commands: [],
+	commands: {},
+	commandDescs: {},
+	commandUsage: {},
 	plugins: {},
 	admins: [
 		"126079426076082176", // Pix

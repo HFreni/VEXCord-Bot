@@ -14,3 +14,18 @@ vexBot.commands[">"] = function(data) {
 	}
 	return (new vm.Script(data.message)).runInThisContext();
 }
+
+vexBot.commands.help = function(data) {
+	var help = "";
+	for (var key in vexBot.commandDescs) {
+		if (vexBot.commandDescs.hasOwnProperty(key)) {
+			if (vexBot.commandUsage[key]) {
+				help += vexBot.commandPrefix + key + " " + vexBot.commandUsage[key] + " - " + vexBot.commandDescs[key] + "\n";
+			} else {
+				help += vexBot.commandPrefix + key + " - " + vexBot.commandDescs[key] + "\n";
+			}
+		}
+	}
+	return help;
+}
+vexBot.commandDescs.help = "Lists bot commands";
