@@ -4,14 +4,14 @@ var API_TOKEN 	= process.env.API_KEY;
 
 if (!API_TOKEN) {
 	console.error("Could not load API key")
-}
+};
 
 // Everything about our bot
 vexBot = {
 	commandPrefix: ".",
 	// Synax:
 	// vexBot.commands.foo = function(data) {...};
-	//     data.message:    The parameters sent to the command    
+	//     data.message:    The parameters sent to the command
 	//     data.respond(s): Respond to the user
 	//     data.name:       The user's name
 	//     data.id:         The user's ID
@@ -26,7 +26,7 @@ vexBot = {
 		"192717589422669826", // Harri
 		"171319044715053057"  // Asianboi
 	]
-}
+};
 
 // This is our auth token, and it's going on github :D
 vexBot.client = new Discord.Client({
@@ -57,20 +57,21 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 		// Mobile keyboards sometimes automatically put in an annoying space.
 		if (msg.substring(0, 1) == " ") {
 			msg = msg.substring(1);
-		}
+		};
 
 		var cmd = '';
 		while (msg.length > 0 && msg.substring(0, 1) != " ") {
 			cmd += msg.substring(0, 1);
 			msg = msg.substring(1);
-		}
+		};
+
 		// Mobile keyboards automatically capitalize
 		cmd = cmd.toLowerCase();
 
 		// Remove space after command
 		if (msg.substring(0, 1) == " ") {
 			msg = msg.substring(1);
-		}
+		};
 
 		if (cmd in vexBot.commands) {
 			console.log(user + " used \"" + cmd + "\"");
