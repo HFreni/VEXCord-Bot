@@ -1,5 +1,3 @@
-
-
 vexBot.commands.playmusic = function(data) {
 	console.log("CMD Recieved");
  	vexBot.joinVoiceChannel(channelID, function() {
