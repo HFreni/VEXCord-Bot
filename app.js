@@ -1,5 +1,9 @@
 // Your run of the mill imports!
-var Discord 	= require("discord.io");
+var Discord 		= require("discord.io");
+var express			= require("express");
+
+var app 				= express();
+var port 				= process.env.PORT;
 var API_TOKEN 	= process.env.API_KEY;
 
 if (!API_TOKEN) {
@@ -113,3 +117,6 @@ require("fs").readdirSync(normalizedPath).forEach(function(file) {
 	console.log(">>> Loading plugin " + file.substr(0, file.lastIndexOf('.')));
 	vexBot.plugins[file.substr(0, file.lastIndexOf('.'))] = require("./plugins/" + file);
 });
+
+app.listen(port);
+console.log("Applicatuon Running on Port: " + port);
