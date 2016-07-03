@@ -3,8 +3,8 @@ var Discord 	= require("discord.io");
 var API_TOKEN 	= process.env.API_KEY;
 
 if (!API_TOKEN) {
-	console.error("Could not load API key")
-};
+	console.error("Could not load API key");
+}
 
 // Everything about our bot
 vexBot = {
@@ -57,13 +57,13 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 		// Mobile keyboards sometimes automatically put in an annoying space.
 		if (msg.substring(0, 1) == " ") {
 			msg = msg.substring(1);
-		};
+		}
 
 		var cmd = '';
 		while (msg.length > 0 && msg.substring(0, 1) != " ") {
 			cmd += msg.substring(0, 1);
 			msg = msg.substring(1);
-		};
+		}
 
 		// Mobile keyboards automatically capitalize
 		cmd = cmd.toLowerCase();
@@ -71,7 +71,7 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 		// Remove space after command
 		if (msg.substring(0, 1) == " ") {
 			msg = msg.substring(1);
-		};
+		}
 
 		if (cmd in vexBot.commands) {
 			console.log(user + " used \"" + cmd + "\"");
