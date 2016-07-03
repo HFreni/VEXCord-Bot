@@ -3,7 +3,7 @@ var Discord 		= require("discord.io");
 var express			= require("express");
 
 var app 				= express();
-var port 				= process.env.PORT;
+var port 				= process.env.PORT || 3000;
 var API_TOKEN 	= process.env.API_KEY;
 
 if (!API_TOKEN) {
