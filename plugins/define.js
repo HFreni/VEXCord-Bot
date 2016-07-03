@@ -51,3 +51,5 @@ vexBot.commands.define = function(data) {
     }
 	});
 };
+vexBot.commandUsage.define = "<word that needs definition>";
+vexBot.commandDescs.define = "Gets the definition of a word from Urban Dictionary";

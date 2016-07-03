@@ -13,3 +13,5 @@ var toFullwidth = function(str) {
 vexBot.commands.fw = function(data) {
   data.respond(toFullwidth(data.message));
 };
+vexBot.commandUsage.fw = "<phrase>";
+vexBot.commandDescs.fw = "Translates chars into unicode fullwidth for vaporwave memes";
