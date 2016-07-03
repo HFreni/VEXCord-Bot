@@ -89,7 +89,7 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 					respond: function(result) {
 						vexBot.client.sendMessage({
 							to: channelID,
-							message: /*user + ", " +*/ result
+							message: user + ", " + result
 						});
 					}
 				});
