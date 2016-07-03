@@ -9,5 +9,5 @@ vexBot.commands.voteskip = function(data) {
     data.respond("-skip");
     requestNum = 0;
   }
-  console.log("Successfully Skipped")
+  console.log("Successfully Skipped");
 };
