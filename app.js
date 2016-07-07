@@ -1,5 +1,4 @@
 // Your run of the mill imports!
-// I had to do this to tell heroku to get good.
 var Discord 		= require("discord.io");
 var express			= require("express");
 
