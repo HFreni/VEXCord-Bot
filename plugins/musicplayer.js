@@ -7,46 +7,16 @@
 
 var http = require('http');
 var fs = require('fs');
-var fs = require('fs');
 var exec = require('child_process').exec;
 var ytdl = require('ytdl-core');
 
 var DOWNLOAD_DIR = './musics/';
 
-var ytDL = function(videoUrl, username, userID) {
-
-  //Validates URL
-  var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-  var match = videoUrl.match(regExp);
-
-  if (match && match[2].length == 11) {
-    this.videoUrl = videoUrl;
-    this.username = username;
-    this.userID = userID;
-    this.isValid = true;
-
-    //Extract the video's ID from the url
-    this.id = this.videoUrl.split('v=')[1];
-    var ampersandPosition = this.id.indexOf('&');
-    if(ampersandPosition != -1) {
-      this.id = this.id.substring(0, ampersandPosition);
-    }
-
-  } else {
-    this.isValid = false;
-  }
-
-  ytDL.prototype.downloadSong = function(callback) {
-    var dir_dest = DOWNLOAD_DIR;
-    var file_dest = this.id + '.flv';
-    dm.downloadVideo(
-      this.videoUrl,
-      dir_dest,
-      file_dest,
-      callback
-    );
-  }
-}
+var audioStream = null;
+var currentVoiceChannel = null;
+var currentSong = null;
+var queue       = Array();
+var skipSet     = new Set();
 
 function convertFlvToMp3(source_file, destination_dir, callback) {
   var destination_file = source_file.split('/').slice(-1)[0].replace('.flv', '.mp3');
@@ -70,44 +40,79 @@ function convertFlvToMp3(source_file, destination_dir, callback) {
 }
 
 
-var dm = function() {
-  downloadVideo = function(url, dir_dest, file_dest, callback) {
-    var stream = ytdl(url).pipe(fs.createWriteStream(dir_dest + file_dest));
-    stream.on('finish', function () {
-      convertFlvToMp3(dir_dest + file_dest, dir_dest, callback);
-    });
+downloadVideo: function(url, dir_dest, file_dest, callback) {
+  var stream = ytdl(url).pipe(fs.createWriteStream(dir_dest + file_dest));
+  stream.on('finish', function () {
+    convertFlvToMp3(dir_dest + file_dest, dir_dest, callback);
+  });
+}
+
+
+function YoutubeSong(videoUrl, username, userID) {
+
+  //Validates URL
+  var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+  var match = videoUrl.match(regExp);
+
+  if (match && match[2].length == 11) {
+    this.videoUrl = videoUrl;
+    this.username = username;
+    this.userID = userID;
+    this.isValid = true;
+
+    //Extract the video's ID from the url
+    this.id = this.videoUrl.split('v=')[1];
+    var ampersandPosition = this.id.indexOf('&');
+    if(ampersandPosition != -1) {
+      this.id = this.id.substring(0, ampersandPosition);
+    }
+
+  } else {
+    this.isValid = false;
+  }
+
+  YoutubeSong.prototype.downloadSong = function(callback) {
+    var dir_dest = DOWNLOAD_DIR;
+    var file_dest = this.id + '.flv';
+    downloadVideo(
+      this.videoUrl,
+      dir_dest,
+      file_dest,
+      callback
+    );
   }
 }
+
 
 function addSong(url, username, userID) {
   if(url && url.length > 0) {
 
-    var ytDL = new ytDL(url, username, userID);
+    var youtubeSong = new YoutubeSong(url, username, userID);
     var exist = false;
 
     var files = fs.readdirSync(DOWNLOAD_DIR);
     for (var i = 0; i < files.length; i++) {
-      if(files[i] == ytDL.id + '.mp3') {
+      if(files[i] == youtubeSong.id + '.mp3') {
         exist = true;
         break;
       }
     }
 
-    if(exist && ytDL.isValid) {
+    if(exist && youtubeSong.isValid) {
       console.log('Music already download, adding to queue...');
-      queue.push(ytDL);
+      queue.push(youtubeSong);
       if(currentSong == null) {
         start();
       }
     } else {
       //If url is wrong
-      if(ytDL.isValid) {
-        ytDL.downloadSong(function (err) {
+      if(youtubeSong.isValid) {
+        youtubeSong.downloadSong(function (err) {
           if(err) {
             console.error(err);
-            sendMessage('@' + ytDL.username + ' Impossible to load ' + ytDL.url);
+            sendMessage('@' + youtubeSong.username + ' Impossible to load ' + youtubeSong.url);
           } else {
-            queue.push(ytDL);
+            queue.push(youtubeSong);
             if(currentSong == null) {
               start();
             }
@@ -161,6 +166,7 @@ function nextSong() {
 //Skip if more than 50% of the users have typed !skip
 //TODO: check for user in the same voice channel
 function skip(userID) {
+
   skipSet.add(userID);
   var skipSum = skipSet.size;
 
@@ -198,12 +204,14 @@ function findVoiceChannelIdWhereUserIs(userID) {
       }
     }
   }
+
   return voiceChannel;
 }
 
 //Join the voice channel where the user is
 function joinChannel(userID, channelID) {
   currentVoiceChannel = findVoiceChannelIdWhereUserIs(userID);
+
   vexBot.joinVoiceChannel(currentVoiceChannel, function () {
     vexBot.getAudioContext({channel: currentVoiceChannel, stereo: true}, function(stream) {
         audioStream = stream;
