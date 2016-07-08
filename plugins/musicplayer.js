@@ -10,7 +10,7 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 var ytdl = require('ytdl-core');
 
-var DOWNLOAD_DIR = './musics/';
+var DOWNLOAD_DIR = '../musics/';
 
 var audioStream = null;
 var currentVoiceChannel = null;
