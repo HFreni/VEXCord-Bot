@@ -71,7 +71,7 @@ function convertFlvToMp3(source_file, destination_dir, callback) {
 
 
 var dm = function() {
-  downloadVideo: function(url, dir_dest, file_dest, callback) {
+  downloadVideo = function(url, dir_dest, file_dest, callback) {
     var stream = ytdl(url).pipe(fs.createWriteStream(dir_dest + file_dest));
     stream.on('finish', function () {
       convertFlvToMp3(dir_dest + file_dest, dir_dest, callback);
