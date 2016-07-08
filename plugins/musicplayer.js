@@ -214,3 +214,5 @@ function joinChannel(userID, channelID) {
 vexBot.commands.play = function(data) {
   addSong(data.message, data.name, data.id);
 }
+vexBot.commandUsage.play = "<youtube url>";
+vexBot.commandDescs.play = "Plays the audio from a YouTube video";
