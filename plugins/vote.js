@@ -2,6 +2,7 @@ var unirest = require('unirest');
 var concat = require('concat-stream');
 var strawpoll = require('strawpoll');
 
+/*
 var postPoll = function(pollTitle, pollOptions, cb) {
   var req = unirest.post("https://strawpoll.me/api/v2/polls/1")
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
@@ -13,7 +14,7 @@ var postPoll = function(pollTitle, pollOptions, cb) {
         cb(true, JSON.parse(res.raw_body));
       }
     });
-}
+}*/
 
 vexBot.commands.poll = function(data) {
   var stream = strawpoll({
