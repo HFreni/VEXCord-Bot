@@ -13,7 +13,7 @@ var postPoll = function(pollTitle, pollOptions, cb) {
     });
 }
 
-vexBot.commands.strawpoll = function(data) {
+vexBot.commands.poll = function(data) {
 	postPoll(data.message, data.message, function(err, poll) {
     var d = poll.list[0];
     data.respond('http://www.strawpoll.me/' + poll.id)
