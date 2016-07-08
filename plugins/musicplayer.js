@@ -21,7 +21,7 @@ var skipSet     = new Set();
 function convertFlvToMp3(source_file, destination_dir, callback) {
   var destination_file = source_file.split('/').slice(-1)[0].replace('.flv', '.mp3');
 
-  var ffmpeg = 'ffmpeg -i '+ source_file + ' ' + destination_dir + destination_file;
+  var ffmpeg = 'ffmpeg -i '+ source_file + ' ' + destination_dir + destination_file + ' ' + '-af volume=0.15';
   var child = exec(ffmpeg, function(err, stdout, stderr) {
     if(err) {
       callback(err);
@@ -230,3 +230,15 @@ vexBot.commands.play = function(data) {
 }
 vexBot.commandUsage.play = "<youtube url>";
 vexBot.commandDescs.play = "Plays the audio from a YouTube video";
+
+vexBot.commands.stop = function(data) {
+  stop();
+}
+vexBot.commandUsage.play = "";
+vexBot.commandDescs.play = "Stops your audio file";
+
+vexBot.commands.skip = function(data) {
+  skip(data.id);
+}
+vexBot.commandUsage.play = "";
+vexBot.commandDescs.play = "Votes to skip current song";
