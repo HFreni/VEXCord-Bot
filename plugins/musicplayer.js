@@ -245,11 +245,11 @@ vexBot.commandDescs.play = "Plays the audio from a YouTube video";
 vexBot.commands.stop = function(data) {
   stop();
 }
-vexBot.commandUsage.play = "";
-vexBot.commandDescs.play = "Stops your audio file";
+vexBot.commandUsage.stop = "";
+vexBot.commandDescs.stop = "Stops your audio file";
 
 vexBot.commands.skip = function(data) {
   skip(data.id);
 }
-vexBot.commandUsage.play = "";
-vexBot.commandDescs.play = "Votes to skip current song";
+vexBot.commandUsage.skip = "";
+vexBot.commandDescs.skip = "Votes to skip current song";
