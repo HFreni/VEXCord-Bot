@@ -219,11 +219,22 @@ function joinChannel(userID, channelID) {
   });
 }
 
+function leaveChannel(userID, channelID) {
+  currentVoiceChannel = "200721435977580544";//findVoiceChannelIdWhereUserIs(userID);
+  vexBot.client.leaveVoiceChannel(currentVoiceChannel);
+}
+
 vexBot.commands.join = function(data) {
   joinChannel(data.id, data.channel);
 }
 vexBot.commandUsage.join = "";
 vexBot.commandDescs.join = "Joins the voice channel you are in";
+
+vexBot.commands.levae = function(data) {
+  leaveChannel(data.id, data.channel);
+}
+vexBot.commandUsage.join = "";
+vexBot.commandDescs.join = "Leaves the voice channel you are in";
 
 vexBot.commands.play = function(data) {
   addSong(data.message, data.name, data.id);
