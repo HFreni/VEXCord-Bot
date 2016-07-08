@@ -242,11 +242,11 @@ vexBot.commands.play = function(data) {
 vexBot.commandUsage.play = "<youtube url>";
 vexBot.commandDescs.play = "Plays the audio from a YouTube video";
 
-vexBot.commands.stop = function(data) {
+/*vexBot.commands.stop = function(data) {
   stop();
 }
 vexBot.commandUsage.stop = "";
-vexBot.commandDescs.stop = "Stops your audio file";
+vexBot.commandDescs.stop = "Stops your audio file";*/
 
 vexBot.commands.skip = function(data) {
   skip(data.id);
