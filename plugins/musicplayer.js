@@ -219,8 +219,13 @@ function joinChannel(userID, channelID) {
   });
 }
 
-vexBot.commands.play = function(data) {
+vexBot.commands.join = function(data) {
   joinChannel(data.id, data.channel);
+}
+vexBot.commandUsage.join = "";
+vexBot.commandDescs.join = "Joins the voice channel you are in";
+
+vexBot.commands.play = function(data) {
   addSong(data.message, data.name, data.id);
 }
 vexBot.commandUsage.play = "<youtube url>";
