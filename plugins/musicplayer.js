@@ -228,13 +228,13 @@ vexBot.commands.join = function(data) {
   joinChannel(data.id, data.channel);
 }
 vexBot.commandUsage.join = "";
-vexBot.commandDescs.join = "Joins the voice channel you are in";
+vexBot.commandDescs.join = "Joins the voice channel";
 
-vexBot.commands.levae = function(data) {
+vexBot.commands.leave = function(data) {
   leaveChannel(data.id, data.channel);
 }
-vexBot.commandUsage.join = "";
-vexBot.commandDescs.join = "Leaves the voice channel you are in";
+vexBot.commandUsage.leave = "";
+vexBot.commandDescs.leave = "Leaves the voice channel";
 
 vexBot.commands.play = function(data) {
   addSong(data.message, data.name, data.id);
