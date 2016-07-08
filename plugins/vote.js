@@ -31,8 +31,7 @@ vexBot.commands.poll = function(data) {
 
   stream.pipe(concat(function(poll) {
     poll = JSON.parse(poll);
-    // poll.id is your poll's id
-    // check out your poll at strawpoll.me/id
+    console.log(poll.id);
     data.respond('www.strawpoll.me/' + poll.id);
   }));
 }
