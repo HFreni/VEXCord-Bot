@@ -171,7 +171,7 @@ function skip(userID) {
   var skipSum = skipSet.size;
 
   var onlineMembers = 0;
-  var serverID = Object.keys(vexBot.servers)[0]; //Only one server
+  var serverID = "197777408198180864"; //Only one server
   for (var memberID in vexBot.servers[serverID].members) {
     if (vexBot.servers[serverID].members[memberID].status == 'online') {
       onlineMembers++;
