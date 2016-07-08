@@ -11,12 +11,6 @@ var memes = [
 	"Not Kyle",
 	"Vex Memes",
 	"BNS 3 Way",
-	"Karthik",
-	"Shitty Sensors",
-	"Harri <3",
-	"DiscoCurse",
-	"Skrub",
-	"Megamind",
 ]
 
 function rand(min, max) {
