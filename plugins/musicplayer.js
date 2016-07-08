@@ -4,7 +4,7 @@
 // 3. vexBot downloads music into temp directory, and plays that.
 // 4. vexBot deques music.
 // While vexBot not in use, play 118 songs.
-
+/*
 var http = require('http');
 var fs = require('fs');
 var fs = require('fs');
@@ -17,7 +17,7 @@ var ytDL = function(videoUrl, username, userID) {
 
   //Validates URL
   var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-  var match = videoUrl.match(regExp);
+/*  var match = videoUrl.match(regExp);
 
   if (match && match[2].length == 11) {
     this.videoUrl = videoUrl;
@@ -210,9 +210,10 @@ function joinChannel(userID, channelID) {
     });
   });
 }
-
+*/
 vexBot.commands.play = function(data) {
-  addSong(data.message, data.name, data.id);
+  //addSong(data.message, data.name, data.id);
+  data.respond(data.message + ", " + data.name + ", " data.id + ": derp\n");
 }
 vexBot.commandUsage.play = "<youtube url>";
 vexBot.commandDescs.play = "Plays the audio from a YouTube video";
