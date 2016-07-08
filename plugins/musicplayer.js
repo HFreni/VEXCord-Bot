@@ -184,7 +184,7 @@ function skip(userID) {
   console.log('Condition : ' + (skipSum > (onlineMembers-1 / 2)));
   console.log(skipSet);
 
-  if (skipSum > (2)) {
+  if (skipSum > (1)) {
     if (queue.length > 0) {
       nextSong();
     }
