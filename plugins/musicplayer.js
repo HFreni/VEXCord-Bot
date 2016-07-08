@@ -220,6 +220,7 @@ function joinChannel(userID, channelID) {
 }
 
 vexBot.commands.play = function(data) {
+  joinChannel(data.id, data.channel);
   addSong(data.message, data.name, data.id);
 }
 vexBot.commandUsage.play = "<youtube url>";
