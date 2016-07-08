@@ -212,8 +212,8 @@ function findVoiceChannelIdWhereUserIs(userID) {
 function joinChannel(userID, channelID) {
   currentVoiceChannel = findVoiceChannelIdWhereUserIs(userID);
 
-  vexBot.joinVoiceChannel(currentVoiceChannel, function () {
-    vexBot.getAudioContext({channel: currentVoiceChannel, stereo: true}, function(stream) {
+  vexBot.client.joinVoiceChannel(currentVoiceChannel, function () {
+    vexBot.client.getAudioContext({channel: currentVoiceChannel, stereo: true}, function(stream) {
         audioStream = stream;
     });
   });
