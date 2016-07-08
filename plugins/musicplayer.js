@@ -210,10 +210,11 @@ function joinChannel(userID, channelID) {
     });
   });
 }
-*/
+
 vexBot.commands.play = function(data) {
   //addSong(data.message, data.name, data.id);
   data.respond(data.message + ", " + data.name + ", " data.id + ": derp\n");
 }
 vexBot.commandUsage.play = "<youtube url>";
 vexBot.commandDescs.play = "Plays the audio from a YouTube video";
+*/
