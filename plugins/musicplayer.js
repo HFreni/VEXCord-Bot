@@ -171,12 +171,12 @@ function skip(userID) {
   var skipSum = skipSet.size;
 
   var onlineMembers = 0;
-  var serverID = "197777408198180864"; //Only one server
+  /*var serverID = "197777408198180864"; //Only one server
   for (var memberID in vexBot.servers[serverID].members) {
     if (vexBot.servers[serverID].members[memberID].status == 'online') {
       onlineMembers++;
     }
-  }
+  }*/
 
   console.log('onlineMembers = ' + (onlineMembers-1));
   console.log('skipSum : ' + skipSum);
@@ -184,7 +184,7 @@ function skip(userID) {
   console.log('Condition : ' + (skipSum > (onlineMembers-1 / 2)));
   console.log(skipSet);
 
-  if (skipSum > (onlineMembers-1 / 2)) {
+  if (skipSum > (2)) {
     if (queue.length > 0) {
       nextSong();
     }
