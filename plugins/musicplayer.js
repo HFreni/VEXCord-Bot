@@ -50,12 +50,12 @@ function YoutubeSong(videoUrl, username, userID) {
 	var regExp = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/g;
 	var match = videoUrl.match(regExp);
 
-	if (match[0]) {
+	if (match[1]) {
 		this.videoUrl = videoUrl;
 		this.username = username;
 		this.userID = userID;
 		this.isValid = true;
-		this.id = match[0];
+		this.id = match[1];
 	} else {
 		this.isValid = false;
 	}
@@ -65,7 +65,6 @@ function YoutubeSong(videoUrl, username, userID) {
 		downloadVideo(this.videoUrl, dir_dest, file_dest, callback);
 	}
 }
-
 
 function addSong(url, username, userID) {
 	if (url && url.length > 0) {
