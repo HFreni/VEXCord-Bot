@@ -50,12 +50,12 @@ function YoutubeSong(videoUrl, username, userID) {
 	var regExp = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/g;
 	var match = videoUrl.match(regExp);
 
-	if (match[1]) {
+	if (match[0]) {
 		this.videoUrl = videoUrl;
 		this.username = username;
 		this.userID = userID;
 		this.isValid = true;
-		this.id = match[1];
+		this.id = match[0];
 	} else {
 		this.isValid = false;
 	}
