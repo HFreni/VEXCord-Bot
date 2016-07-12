@@ -47,21 +47,15 @@ function downloadVideo(url, dir_dest, file_dest, callback) {
 
 function YoutubeSong(videoUrl, username, userID) {
 	// Validates URL.
-	var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+	var regExp = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11}\W/;
 	var match = videoUrl.match(regExp);
 
-	if (match && match[2].length == 11) {
+	if (match[1]) {
 		this.videoUrl = videoUrl;
 		this.username = username;
 		this.userID = userID;
 		this.isValid = true;
-
-		// Extract the video's ID from the URL.
-		this.id = this.videoUrl.split('v=')[1];
-		var ampersandPosition = this.id.indexOf('&');
-		if (ampersandPosition != -1) {
-			this.id = this.id.substring(0, ampersandPosition);
-		}
+		this.id = match[1];
 	} else {
 		this.isValid = false;
 	}
@@ -148,7 +142,6 @@ function nextSong() {
 	stop();
 }
 
-
 // Skip if more than 50% of the users have typed ".skip".
 // TODO: check for user in the same voice channel.
 function skip(userID) {
@@ -174,11 +167,10 @@ function skip(userID) {
 		if (queue.length > 0) {
 			nextSong();
 		}
-		console.log('Skipped song')
+		console.log('Skipped song');
 		skipSet.clear();
 	}
 }
-
 
 // Return the voice channel where the user is.
 function findVoiceChannelIdWhereUserIs(userID) {
@@ -195,7 +187,7 @@ function findVoiceChannelIdWhereUserIs(userID) {
 
 // Join the voice channel where the user is.
 function joinChannel(userID, channelID) {
-	currentVoiceChannel = "197818048147750912";//findVoiceChannelIdWhereUserIs(userID);
+	var currentVoiceChannel = "197818048147750912";//findVoiceChannelIdWhereUserIs(userID);
 
 	vexBot.client.joinVoiceChannel(currentVoiceChannel, function () {
 		vexBot.client.getAudioContext({channel: currentVoiceChannel, stereo: true}, function(stream) {
@@ -226,13 +218,7 @@ vexBot.commands.play = function(data) {
 }
 vexBot.commandUsage.play = "<youtube url>";
 vexBot.commandDescs.play = "Plays the audio from a YouTube video";
-/*
-vexBot.commands.stop = function(data) {
-	stop();
-}
-vexBot.commandUsage.stop = "";
-vexBot.commandDescs.stop = "Stops your audio file";
-*/
+
 vexBot.commands.skip = function(data) {
 	skip(data.id);
 }
