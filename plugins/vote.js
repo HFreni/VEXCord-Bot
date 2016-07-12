@@ -4,6 +4,9 @@ var request = require('request');
 // Command Style:
 // .poll <Poll Title>; <[ArrayOfOptions]>
 // Regex for comma separation: /,(?=\w+:)/
+var ids = [];
+var idIndex = 0;
+
 vexBot.commands.poll = function(data) {
     var lastStart = 0;
     numOfItems = 1;
@@ -40,10 +43,22 @@ vexBot.commands.poll = function(data) {
     }, function(err, res, body) {
         if(!err && res.statusCode == 200) {
             var d = body.id;
+            ids[idIndex] = d;
             console.log(d);
             data.respond('http://www.strawpoll.me/' + d);
         }
     });
-}
-vexBot.commandUsage.poll = "<PollTitle>;<[ArrayOfOptions]>"
-vexBot.commandDescs.poll = "Creates a new poll with Title: <PollTitle>, and Options: <[ArrayOfOptions]>"
+};
+vexBot.commandUsage.poll = "<PollTitle>;<[ArrayOfOptions]>";
+vexBot.commandDescs.poll = "Creates a new poll with Title: <PollTitle>, and Options: <[ArrayOfOptions]>";
+
+vexBot.commands.results = function(data) {
+    if(data.message > ids) {
+        data.respond("You have requested poll results on a nonexistant poll");
+    } else {
+        var temp = ids[data.message];
+        data.respond("http://www.strawpoll.me/" + temp + "/r");
+    }
+};
+vexBot.commandUsage.results = "<PollNumber>";
+vexBot.commandDescs.results = "Returns the poll results from poll: <PollNumber>";
