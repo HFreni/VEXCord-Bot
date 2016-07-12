@@ -4,6 +4,7 @@ var request = require('request');
 // Command Style:
 // .poll <Poll Title>; <[ArrayOfOptions]>
 // Regex for comma separation: /,(?=\w+:)/
+// It works!!!
 var ids = [];
 var idIndex = 0;
 
@@ -22,17 +23,17 @@ vexBot.commands.poll = function(data) {
             //console.log("False at" + a);
         }
     }
-    console.log(data.message.substring(lastStart, data.message.length));
+    // console.log(data.message.substring(lastStart, data.message.length));
     pollOptions[numOfItems-1] = data.message.substring(lastStart, data.message.length);
-    console.log(pollOptions);
+    // console.log(pollOptions);
 
     var question = pollOptions[0];
     var finalOptions = [];
     for(var i = 1; i <= pollOptions.length -1; i++) {
         finalOptions[i-1] = pollOptions[i];
     }
-    console.log(question);
-    console.log(finalOptions);
+    // console.log(question);
+    // console.log(finalOptions);
 
     var poll = {title: question, options: finalOptions};
     request.post({
