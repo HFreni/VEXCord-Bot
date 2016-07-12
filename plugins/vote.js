@@ -1,37 +1,23 @@
-var unirest = require('unirest');
-var concat = require('concat-stream');
-var strawpoll = require('strawpoll');
+var request = require('request');
 
-/*
-var postPoll = function(pollTitle, pollOptions, cb) {
-  var req = unirest.post("https://strawpoll.me/api/v2/polls/1")
-    .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-    .send({"title": pollTitle,"options": ["Option #1","Option #2" ], "multi": false})
-    .end(function(res) {
-      if (res.statusType != 2) {
-        cb(false, res.code);
-      } else {
-        cb(true, JSON.parse(res.raw_body));
-      }
-    });
-}*/
-
+// In order to separate our request, we must create a way to check for a list.
+// Command Style:
+// .poll <Poll Title>; <[ArrayOfOptions]>
 vexBot.commands.poll = function(data) {
-  var stream = strawpoll({
-    title: 'My first poll',
-    options: [
-      'wow',
-      'awesome',
-      'amazing',
-      'nice'
-    ],
-    multi: false,
-    permissive: true
-  });
+    var poll = {title: data.message, options: ['Option 1', 'Option 2']};
 
-  stream.pipe(concat(function(poll) {
-    poll = JSON.parse(poll);
-    console.log(poll.id);
-    data.respond('www.strawpoll.me/' + poll.id);
-  }));
+    request.post({
+        url: 'https://strawpoll.me/api/v2/polls',
+        followAllRedirects: true,
+        body: poll,
+        json: true
+    }, function(err, res, body) {
+        if(!err && res.statusCode == 200) {
+            var d = body.id;
+            console.log(d);
+            data.respond('http://www.strawpoll.me/' + d);
+        }
+    });
 }
+vexBot.commandUsage.poll = "<PollTitle>;<[ArrayOfOptions]>"
+vexBot.commandDescs.poll = "Creates a new poll with Title: <PollTitle>, and Options: <[ArrayOfOptions]>"
