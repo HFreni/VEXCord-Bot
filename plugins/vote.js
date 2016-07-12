@@ -5,15 +5,33 @@ var request = require('request');
 // .poll <Poll Title>; <[ArrayOfOptions]>
 // Regex for comma separation: /,(?=\w+:)/
 vexBot.commands.poll = function(data) {
+    var lastStart = 0;
+    numOfItems = 1;
+    var pollOptions = [];
     for(var a = 0; a < data.message.length; a++) {
-        if(data.message.includes(",", a) == true) {
-            console.log("True at: " + a);
+        if(data.message.charAt(a) == ',') {
+            //console.log("True at: " + a);
+            //console.log(data.message.substring(lastStart, a));
+            pollOptions[numOfItems-1] = data.message.substring(lastStart, a);
+            numOfItems++;
+            lastStart = a+1;
         } else {
-            console.log("False at" + a);
+            //console.log("False at" + a);
         }
     }
+    console.log(data.message.substring(lastStart, data.message.length));
+    pollOptions[numOfItems-1] = data.message.substring(lastStart, data.message.length);
+    console.log(pollOptions);
 
-    var poll = {title: data.message, options: ['Option 1', 'Option 2']};
+    var question = pollOptions[0];
+    var finalOptions = [];
+    for(var i = 1; i <= pollOptions.length -1; i++) {
+        finalOptions[i-1] = pollOptions[i];
+    }
+    console.log(question);
+    console.log(finalOptions);
+
+    var poll = {title: question, options: finalOptions};
     request.post({
         url: 'https://strawpoll.me/api/v2/polls',
         followAllRedirects: true,
