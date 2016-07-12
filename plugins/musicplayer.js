@@ -47,7 +47,7 @@ function downloadVideo(url, dir_dest, file_dest, callback) {
 
 function YoutubeSong(videoUrl, username, userID) {
 	// Validates URL.
-	var regExp = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/g;
+	var regExp = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/g;
 	var match = videoUrl.match(regExp);
 
 	if (match[1]) {
