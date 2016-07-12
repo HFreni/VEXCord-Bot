@@ -20,7 +20,7 @@ var skipSet     = new Set();
 
 function convertFlvToMp3(source_file, destination_dir, callback) {
 	var destination_file = source_file.split('/').slice(-1)[0].replace('.flv', '.mp3');
-	var ffmpeg = 'ffmpeg -i '+ source_file + ' ' + destination_dir + destination_file + ' ' + '-af volume=0.15';
+	var ffmpeg = 'ffmpeg -i '+ source_file + ' ' + destination_dir + destination_file;// + ' ' + '-af volume=0.15';
 	var child = exec(ffmpeg, function(err, stdout, stderr) {
 		if (err) {
 			callback(err);
@@ -47,7 +47,7 @@ function downloadVideo(url, dir_dest, file_dest, callback) {
 
 function YoutubeSong(videoUrl, username, userID) {
 	// Validates URL.
-	var regExp = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;// /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+	var regExp = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
 	var match = videoUrl.match(regExp);
 
 	if (match[1]) {
