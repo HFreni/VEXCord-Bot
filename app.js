@@ -1,10 +1,10 @@
 // Your run of the mill imports!
-var Discord 		= require("discord.io");
-var express			= require("express");
+var Discord 	= require("discord.io");
+var express	= require("express");
 
-var app 			= express();
-var port 			= process.env.PORT || 3000;
-var API_TOKEN 	    = process.env.VEXBOT_API_KEY;
+var app 	= express();
+var port 	= process.env.PORT || 3000;
+var API_TOKEN 	= process.env.VEXBOT_API_KEY;
 
 if (!API_TOKEN) {
 	console.error("Could not load API key");
