@@ -6,8 +6,9 @@ vexBot.commands.rulesearch = function(data) {
   var req = unirest.get("rules.json")
 		.end(function(res) {
 			if (res.statusType != 2) {
-				data.respond("Failed Request - Yell at Jonathan\nExit code:"+res.statusType);
+				data.respond("Failed Request - Yell at Jonathan\nExit:"+res.raw_body);
 			} else {
+        res = JSON.parse(res.raw_body);
         var response = "Rule not found";
         for (var i = 0; i < res.rules.length; i++) {
           if(res.rules[i].number == data) {
