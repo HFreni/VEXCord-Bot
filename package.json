@@ -22,6 +22,7 @@
     "concat-stream": "^1.5.1",
     "discord.io": "latest",
     "express": "^4.14.0",
+    "firebase": "^3.2.0",
     "node-soundcloud": "0.0.5",
     "request": "^2.72.0",
     "sanitize-filename": "^1.6.0",
