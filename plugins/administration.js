@@ -76,10 +76,34 @@ vexBot.commands.register = function(data) {
 vexBot.commandUsage.poll = "<Name>;<TeamNumber>";
 vexBot.commandDescs.poll = "Registers you as a member with name: <Name> on team: <TeamNumber>";
 
+/*
+function isAdmin (userID, channelID){
+    var adminRoleID = null;
+    var serverID = bot.channels[channelID].guild_id;
+    for(var i in bot.servers[serverID].roles){
+	        if(bot.servers[serverID].roles[i].name.toLowerCase() === "admin"){
+			            adminRoleID = bot.servers[serverID].roles[i].id;
+			            break;
+			        }
+	    }
+
+    for(var i in bot.servers[serverID].members[userID].roles){
+	        if(bot.servers[serverID].members[userID].roles[i] === adminRoleID)
+	            return true
+	    }
+    return false;
+}*/
+
+
 vexBot.commands.roles = function(data) {
-		for (var s in vexBot.servers) {
-			console.log("Roles \n");
-			console.log(servers[s]);
-			data.respond(vexBot.servers[s].members[data.id].roles);
-		}
+	console.log("Pre-Loop");
+	console.log("Roles \n");
+	console.log(data.event);
+	var channelID = data.channel;
+	var serverID = vexBot.channels[channelID].guild_id;
+	for(var i in vexBot.servers[serverID].roles) {
+		console.log(vexBot.servers[serverID].roles[i]);
+	}
+	data.respond(vexBot.servers);
+	console.log("Post Loop");
 }
