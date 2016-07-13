@@ -20,7 +20,7 @@ var skipSet     = new Set();
 
 function convertFlvToMp3(source_file, destination_dir, callback) {
 	var destination_file = source_file.split('/').slice(-1)[0].replace('.flv', '.mp3');
-	var ffmpeg = 'ffmpeg -i '+ source_file + ' ' + destination_dir + destination_file;// + ' ' + '-af volume=0.15';
+	var ffmpeg = 'ffmpeg -i '+ source_file + ' ' + destination_dir + destination_file;
 	var child = exec(ffmpeg, function(err, stdout, stderr) {
 		if (err) {
 			callback(err);
