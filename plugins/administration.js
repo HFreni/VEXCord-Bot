@@ -21,11 +21,11 @@ var firebase = require('firebase');
 
 // Initialize the app with no authentication
 firebase.initializeApp({
-    serviceAccount: /*process.env.VEXBOT_FIREBASE_KEY*//*"s3.hfreni.space/img/vexbot-6c4a4d1a2f1c.json",
+	serviceAccount: process.env.VEXBOT_FIREBASE_KEY "https://s3.hfreni.space/img/vexbot-6c4a4d1a2f1c.json",
     databaseURL: "https://vexbot-668e9.firebaseio.com"
-});/*
+});
 
-/*
+
 vexBot.commands.register = function(data) {
     var db = firebase.database();
     var ref = db.ref("/userData");
