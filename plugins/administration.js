@@ -15,7 +15,7 @@
 // * Kick/Ban Users
 // * Force Skip Music <-- See musicplayer.js
 // * Add/Remove data from the helpful links list.
-
+// * Check if user already registerred.
 
 var firebase = require('firebase');
 
@@ -59,9 +59,6 @@ vexBot.commands.register = function(data) {
 	});
 
     var usersRef = ref.child("users");
-	ref.orderByChild("users").equalTo(data.id).on("child_added", function(snapshot) {
-		console.log(snapshot.key);
-	});
 
 	if(userInfo[2]) {
 		data.respond("Sorry, you have inputted too many paramaters");
