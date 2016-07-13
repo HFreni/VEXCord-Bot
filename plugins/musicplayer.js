@@ -67,7 +67,7 @@ function YoutubeSong(videoUrl, username, userID) {
 }
 
 function addSong(url, username, userID) {
-	joinChannel(data.id, data.channel);
+	joinChannel(userID);
 
 	if (url && url.length > 0) {
 		var youtubeSong = new YoutubeSong(url, username, userID);
