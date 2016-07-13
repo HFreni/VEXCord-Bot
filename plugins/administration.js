@@ -29,19 +29,57 @@ firebase.initializeApp({
 vexBot.commands.register = function(data) {
     var db = firebase.database();
     var ref = db.ref("/userData");
-    ref.once("value", function(snapshot) {
+	var splitChar = ";";
+
+	var lastStart = 0;
+	var numOfItems = 1;
+	var userInfo = [];
+	for(var a = 0; a < data.message.length; a++) {
+		if(data.message.charAt(a) == splitChar) {
+			console.log("True at: " + a);
+			console.log(data.message.substring(lastStart, a));
+			userInfo[numOfItems-1] = data.message.substring(lastStart, a);
+			numOfItems++;
+			lastStart = a+1;
+		} else {
+			console.log("False at" + a);
+		}
+	}
+	console.log(data.message.substring(lastStart, data.message.length));
+	userInfo[numOfItems-1] = data.message.substring(lastStart, data.message.length);
+	console.log(userInfo);
+
+
+	var userStuff = data.id;
+
+
+	ref.once("value", function(snapshot) {
         console.log(snapshot.val());
     });
 
     var usersRef = ref.child("users");
-    usersRef.set({
-        harri: {
-            date_of_birth: "June 23, 1912",
-            full_name: "Alan Turing"
-        },andre: {
-            date_of_birth: "December 9, 1906",
-            full_name: "Grace Hopper"
-        }
-    });
+	if(userInfo[2]) {
+		data.respond("Sorry, you have inputted too many paramaters");
+	} else {
+		usersRef.child(userStuff).set({
+    	    teamNumber: userInfo[1],
+    		name: userInfo[0]
+		});
+		data.respond("Congratulations, " + userInfo[0] + " you have now registered as Team#: " + userInfo[1]);
+		vexBot.client.addToRole({
+		    server: "197777408198180864",
+		    user: data.id,
+		    role: "The Role ID"
+		});
+	}
 };
+vexBot.commandUsage.poll = "<Name>;<TeamNumber>";
+vexBot.commandDescs.poll = "Registers you as a member with name: <Name> on team: <TeamNumber>";
 
+vexBot.commands.roles = function(data) {
+		for (var s in vexBot.servers) {
+			console.log("Roles \n");
+			console.log(servers[s]);
+			data.respond(vexBot.servers[s].members[data.id].roles);
+		}
+}
