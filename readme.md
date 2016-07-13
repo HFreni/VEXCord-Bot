@@ -8,3 +8,4 @@ Feature Timeline:
 * Add moderator skip permissions/do math to calculate skip.
 * Create a helpful links system, in which we store data like CAD library, and other helpful websites.
 * Create some admin only tools that help us keep track of current cases & warnings. (We may want a DB here)!
+* Thx Jardon
