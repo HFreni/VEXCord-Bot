@@ -67,8 +67,8 @@ vexBot.commands.register = function(data) {
 			data.respond("You are already registerred");
 		} else {
 			usersRef.child(userStuff).set({
-    		    teamNumber: userInfo[1],
-    			name: userInfo[0]
+				teamNumber: userInfo[1],
+				name: userInfo[0]
 			});
 			data.respond("Congratulations, " + userInfo[0] + " you have now registered as Team#: " + userInfo[1]);
 			/*vexBot.client.addToRole({
