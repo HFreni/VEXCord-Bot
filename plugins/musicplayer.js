@@ -67,6 +67,8 @@ function YoutubeSong(videoUrl, username, userID) {
 }
 
 function addSong(url, username, userID) {
+	joinChannel(data.id, data.channel);
+
 	if (url && url.length > 0) {
 		var youtubeSong = new YoutubeSong(url, username, userID);
 		var exist = false;
@@ -78,15 +80,14 @@ function addSong(url, username, userID) {
 				break;
 			}
 		}
-		if (exist && youtubeSong.isValid) {
-			console.log('Music already download, adding to queue...');
-			queue.push(youtubeSong);
-			if (currentSong == null) {
-				start();
-			}
-		} else {
-			// If URL is wrong.
-			if (youtubeSong.isValid) {
+		if (youtubeSong.isValid) {
+			if (exist) {
+				console.log('Music already downloaded, adding to queue... .');
+				queue.push(youtubeSong);
+				if (currentSong == null) {
+					start();
+				}
+			} else {  // Download music.
 				youtubeSong.downloadSong(function (err) {
 					if (err) {
 						console.error(err);
@@ -101,12 +102,6 @@ function addSong(url, username, userID) {
 			}
 		}
 	}
-}
-
-// Reset the queue.
-function reset() {
-	stop();
-	queue.length = 0
 }
 
 // Start the first song in the queue.
@@ -156,10 +151,10 @@ function skip(userID) {
 		}
 	}
 */
-	console.log('onlineMembers = ' + (onlineMembers-1));
+	console.log('onlineMembers = ' + onlineMembers);
 	console.log('skipSum : ' + skipSum);
-	console.log('(onlineMembers-1 / 2) : ' + (onlineMembers-1 / 2));
-	console.log('Condition : ' + (skipSum > (onlineMembers-1 / 2)));
+	console.log('(onlineMembers-1 / 2) : ' + (onlineMembers / 2));
+	console.log('Condition : ' + (skipSum > (onlineMembers / 2)));
 	console.log(skipSet);
 
 	if (skipSum > (2)) {
@@ -185,8 +180,8 @@ function findVoiceChannelIdWhereUserIs(userID) {
 }
 
 // Join the voice channel where the user is.
-function joinChannel(userID, channelID) {
-	var currentVoiceChannel = "197818048147750912";//findVoiceChannelIdWhereUserIs(userID);
+function joinChannel(userID) {
+	currentVoiceChannel = "197818048147750912";//findVoiceChannelIdWhereUserIs(userID);
 
 	vexBot.client.joinVoiceChannel(currentVoiceChannel, function () {
 		vexBot.client.getAudioContext({channel: currentVoiceChannel, stereo: true}, function(stream) {
@@ -198,28 +193,29 @@ function joinChannel(userID, channelID) {
 function leaveChannel(userID, channelID) {
 	currentVoiceChannel = "197818048147750912";//findVoiceChannelIdWhereUserIs(userID);
 	vexBot.client.leaveVoiceChannel(currentVoiceChannel);
+	currentVoiceChannel = null;
 }
 
 vexBot.commands.join = function(data) {
-	joinChannel(data.id, data.channel);
+	joinChannel(data.id);
 }
 vexBot.commandUsage.join = "";
-vexBot.commandDescs.join = "Joins the voice channel";
+vexBot.commandDescs.join = "Joins the voice channel.";
 
 vexBot.commands.leave = function(data) {
 	leaveChannel(data.id, data.channel);
 }
 vexBot.commandUsage.leave = "";
-vexBot.commandDescs.leave = "Leaves the voice channel";
+vexBot.commandDescs.leave = "Leaves the voice channel.";
 
 vexBot.commands.play = function(data) {
 	addSong(data.message, data.name, data.id);
 }
 vexBot.commandUsage.play = "<youtube url>";
-vexBot.commandDescs.play = "Plays the audio from a YouTube video";
+vexBot.commandDescs.play = "Plays the audio from a YouTube video.";
 
 vexBot.commands.skip = function(data) {
 	skip(data.id);
 }
 vexBot.commandUsage.skip = "";
-vexBot.commandDescs.skip = "Votes to skip current song";
+vexBot.commandDescs.skip = "Votes to skip current song.";
