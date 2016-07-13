@@ -52,25 +52,34 @@ vexBot.commands.register = function(data) {
 
 	var userStuff = data.id;
 
-
-	ref.once("value", function(snapshot) {
+	ref.on("value", function(snapshot) {
         console.log(snapshot.val());
-    });
+	}, function(errorObject) {
+		console.log("The Read failed: " + errorObject.code );
+	});
 
     var usersRef = ref.child("users");
+	ref.orderByChild("users").equalTo(data.id).on("child_added", function(snapshot) {
+		console.log(snapshot.key);
+	});
+
 	if(userInfo[2]) {
 		data.respond("Sorry, you have inputted too many paramaters");
 	} else {
-		usersRef.child(userStuff).set({
-    	    teamNumber: userInfo[1],
-    		name: userInfo[0]
-		});
-		data.respond("Congratulations, " + userInfo[0] + " you have now registered as Team#: " + userInfo[1]);
-		vexBot.client.addToRole({
-		    server: "197777408198180864",
-		    user: data.id,
-		    role: "The Role ID"
-		});
+		if(false) {
+			data.respond("You are already registerred");
+		} else {
+			usersRef.child(userStuff).set({
+    		    teamNumber: userInfo[1],
+    			name: userInfo[0]
+			});
+			data.respond("Congratulations, " + userInfo[0] + " you have now registered as Team#: " + userInfo[1]);
+			/*vexBot.client.addToRole({
+			    server: "197777408198180864",
+			    user: data.id,
+			    role: "The Role ID"
+			});*/
+		}
 	}
 };
 vexBot.commandUsage.poll = "<Name>;<TeamNumber>";
