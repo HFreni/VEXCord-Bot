@@ -111,6 +111,7 @@ function start() {
 		if (currentSong && currentSong.isValid) {
 			var songPath = DOWNLOAD_DIR + currentSong.id + '.mp3';
 			audioStream.playAudioFile(songPath);
+			skipSet.clear();
 			audioStream.once('fileEnd', songEnded);
 		}
 	} else {
