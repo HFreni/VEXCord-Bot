@@ -67,7 +67,7 @@ function YoutubeSong(videoUrl, username, userID) {
 }
 
 function addSong(url, username, userID) {
-	joinChannel(userID);
+	joinChannel();
 
 	if (url && url.length > 0) {
 		var youtubeSong = new YoutubeSong(url, username, userID);
@@ -115,6 +115,7 @@ function start() {
 		}
 	} else {
 		currentSong = null;
+		leaveChannel();
 	}
 }
 
@@ -180,7 +181,7 @@ function findVoiceChannelIdWhereUserIs(userID) {
 }
 
 // Join the voice channel where the user is.
-function joinChannel(userID) {
+function joinChannel() {
 	currentVoiceChannel = "197818048147750912";//findVoiceChannelIdWhereUserIs(userID);
 
 	vexBot.client.joinVoiceChannel(currentVoiceChannel, function () {
@@ -190,20 +191,20 @@ function joinChannel(userID) {
 	});
 }
 
-function leaveChannel(userID, channelID) {
-	currentVoiceChannel = "197818048147750912";//findVoiceChannelIdWhereUserIs(userID);
+function leaveChannel() {
+	//currentVoiceChannel = "197818048147750912";//findVoiceChannelIdWhereUserIs(userID);
 	vexBot.client.leaveVoiceChannel(currentVoiceChannel);
 	currentVoiceChannel = null;
 }
 
 vexBot.commands.join = function(data) {
-	joinChannel(data.id);
+	joinChannel();
 }
 vexBot.commandUsage.join = "";
 vexBot.commandDescs.join = "Joins the voice channel.";
 
 vexBot.commands.leave = function(data) {
-	leaveChannel(data.id, data.channel);
+	leaveChannel();
 }
 vexBot.commandUsage.leave = "";
 vexBot.commandDescs.leave = "Leaves the voice channel.";
