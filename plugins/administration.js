@@ -27,8 +27,8 @@ firebase.initializeApp({
 
 
 vexBot.commands.register = function(data) {
-    var db = firebase.database();
-    var ref = db.ref("userData");
+	var db = firebase.database();
+	var ref = db.ref("userData");
 	var splitChar = ";";
 	var lastStart = 0;
 	var numOfItems = 1;
@@ -52,57 +52,47 @@ vexBot.commands.register = function(data) {
 	userInfo[numOfItems-1] = data.message.substring(lastStart, data.message.length);
 	//console.log(userInfo);
 
-	// This should do something
-	usersRef.orderByKey().on("child_added", function(snapshot) {
-		//data.respond(snapshot.key);
-		if(data.id == snapshot.key) {
-			registered = true;
-			data.respond("User is registered");
-		} else {
-			data.respond("User isn't registered");
-		}
-		console.log(registered);
-	});
-	console.log(registered);
-
-	// I think this has a mental disorder
 	if(userInfo[2]) {
 		data.respond("Sorry, you have inputted too many paramaters");
 	} else {
-		console.log(registered);
-		if(registered) {
-			data.respond("You are already registerred");
-		} else if(!registered){
-			usersRef.child(userStuff).set({
-				registered: true,
-				teamNumber: userInfo[1],
-				name: userInfo[0]
-			});
-			data.respond("Congratulations, " + userInfo[0] + " you have now registered as Team#: " + userInfo[1]);
-			if(userInfo[1].toUpperCase() == "NONE") {
-				vexBot.client.addToRole({
-					server: "197777408198180864",
-					user: data.id,
-					role: "197817210729791489"
-				});
-				vexBot.client.editNickname({
-					nick: "Testing"
-				});
-				data.respond("Added to Non Competitor Role!");
+		// This should do something
+		usersRef.orderByKey().on("child_added", function(snapshot) {
+			//data.respond(snapshot.key);
+			if(data.id == snapshot.key) {
+				data.respond("You are already registered");
 			} else {
-				vexBot.client.addToRole({
-				    server: "197777408198180864",
-				    user: data.id,
-				    role: "197836716726288387"
+				usersRef.child(userStuff).set({
+					registered: true,
+					teamNumber: userInfo[1],
+					name: userInfo[0]
 				});
-				data.respond("Added to VEX Member Role");
-				vexBot.client.editNickname({
-					nick: userInfo[0] + " | " + userInfo[1]
-				});
-				data.respond("Nick Submitted");
+				data.respond("Congratulations, " + userInfo[0] + " you have now registered as Team#: " + userInfo[1]);
+				if(userInfo[1].toUpperCase() == "NONE") {
+					vexBot.client.addToRole({
+						server: "197777408198180864",
+						user: data.id,
+						role: "197817210729791489"
+					});
+					vexBot.client.editNickname({
+						nick: "Testing"
+					});
+					data.respond("Added to Non Competitor Role!");
+				} else {
+					vexBot.client.addToRole({
+							server: "197777408198180864",
+							user: data.id,
+							role: "197836716726288387"
+					});
+					data.respond("Added to VEX Member Role");
+					vexBot.client.editNickname({
+						nick: userInfo[0] + " | " + userInfo[1]
+					});
+					data.respond("Nick Submitted");
+				}
 			}
-		}
+		});
 	}
+	console.log(registered);
 };
 vexBot.commandUsage.poll = "<Name>;<TeamNumber>";
 vexBot.commandDescs.poll = "Registers you as a member with name: <Name> on team: <TeamNumber>";
