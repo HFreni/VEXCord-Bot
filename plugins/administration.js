@@ -71,11 +71,22 @@ vexBot.commands.register = function(data) {
 				name: userInfo[0]
 			});
 			data.respond("Congratulations, " + userInfo[0] + " you have now registered as Team#: " + userInfo[1]);
-			/*vexBot.client.addToRole({
-			    server: "197777408198180864",
-			    user: data.id,
-			    role: "The Role ID"
-			});*/
+			if(userInfo[1] == "None") {
+				vexBot.client.addToRole({
+					server: "197777408198180864",
+					user: data.id,
+					role: "197817210729791489"
+				});
+			} else {
+				vexBot.client.addToRole({
+				    server: "197777408198180864",
+				    user: data.id,
+				    role: "197836716726288387"
+				});
+				vexBot.client.editNickname({
+					nick: userInfo[0] + " | " + userInfo[1]
+				});
+			}
 		}
 	}
 };
@@ -106,9 +117,9 @@ vexBot.commands.roles = function(data) {
 	console.log("Roles \n");
 	console.log(data.event);
 	var channelID = data.channel;
-	var serverID = vexBot.channels[channelID].guild_id;
-	for(var i in vexBot.servers[serverID].roles) {
-		console.log(vexBot.servers[serverID].roles[i]);
+	var serverID = vexBot.client.channels[channelID].guild_id;
+	for(var i in vexBot.client.servers[serverID].roles) {
+		console.log(vexBot.client.servers[serverID].roles[i]);
 	}
 	data.respond(vexBot.servers);
 	console.log("Post Loop");
