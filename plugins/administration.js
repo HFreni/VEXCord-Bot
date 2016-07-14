@@ -52,34 +52,25 @@ vexBot.commands.register = function(data) {
 	userInfo[numOfItems-1] = data.message.substring(lastStart, data.message.length);
 	//console.log(userInfo);
 
-	// Firebase Test Code
-	ref.on("value", function(snapshot) {
-        console.log(snapshot.val());
-	}, function(errorObject) {
-		console.log("The Read failed: " + errorObject.code );
-	});
-	ref.on("child_added", function(snap) {
-	  count++;
-	  console.log("added:", snap.key);
-	});
-	ref.once("value", function(snap) {
-		console.log("initial data loaded!", snap.numChildren() === count);
-		console.log(count);
-	});
+	// This should do something
 	usersRef.orderByKey().on("child_added", function(snapshot) {
-		data.respond(snapshot.key);
+		//data.respond(snapshot.key);
 		if(data.id == snapshot.key) {
 			registered = true;
+			data.respond("User is registered");
+		} else {
+			data.respond("User isn't registered");
 		}
 		console.log(registered);
 	});
 	console.log(registered);
 
+	// I think this has a mental disorder
 	if(userInfo[2]) {
 		data.respond("Sorry, you have inputted too many paramaters");
 	} else {
 		console.log(registered);
-		if(registered == true) {
+		if(registered) {
 			data.respond("You are already registerred");
 		} else if(!registered){
 			usersRef.child(userStuff).set({
@@ -115,25 +106,6 @@ vexBot.commands.register = function(data) {
 };
 vexBot.commandUsage.poll = "<Name>;<TeamNumber>";
 vexBot.commandDescs.poll = "Registers you as a member with name: <Name> on team: <TeamNumber>";
-
-/*
-function isAdmin (userID, channelID){
-    var adminRoleID = null;
-    var serverID = bot.channels[channelID].guild_id;
-    for(var i in bot.servers[serverID].roles){
-	        if(bot.servers[serverID].roles[i].name.toLowerCase() === "admin"){
-			            adminRoleID = bot.servers[serverID].roles[i].id;
-			            break;
-			        }
-	    }
-
-    for(var i in bot.servers[serverID].members[userID].roles){
-	        if(bot.servers[serverID].members[userID].roles[i] === adminRoleID)
-	            return true
-	    }
-    return false;
-}*/
-
 
 vexBot.commands.roles = function(data) {
 	console.log("Pre-Loop");
