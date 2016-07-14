@@ -57,7 +57,7 @@ vexBot.commands.register = function(data) {
 	} else {
 		// This should do something
 		usersRef.orderByKey().on("child_added", function(snapshot) {
-			//data.respond(snapshot.key);
+			// Supposed to check user id vs snapshot id
 			if(data.id == snapshot.key) {
 				data.respond("You are already registered");
 			} else {
@@ -67,6 +67,7 @@ vexBot.commands.register = function(data) {
 					name: userInfo[0]
 				});
 				data.respond("Congratulations, " + userInfo[0] + " you have now registered as Team#: " + userInfo[1]);
+				// Validation For Team or Non-Team
 				if(userInfo[1].toUpperCase() == "NONE") {
 					vexBot.client.addToRole({
 						server: "197777408198180864",
