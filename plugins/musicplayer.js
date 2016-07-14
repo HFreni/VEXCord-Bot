@@ -141,6 +141,7 @@ function nextSong() {
 
 // Skip if more than 50% of the users have typed ".skip".
 // TODO: check for user in the same voice channel.
+// TODO: Add confirmation that song has been skipped.
 function skip(userID) {
 	skipSet.add(userID);
 

@@ -92,7 +92,7 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 					respond: function(result) {
 						vexBot.client.sendMessage({
 							to: channelID,
-							message: user + ", " + result
+							message: result
 						});
 					}
 				});
@@ -100,13 +100,13 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 				if (result) {
 					vexBot.client.sendMessage({
 						to: channelID,
-						message: user + ", " + result
+						message: result
 					});
 				}
 			} catch (err) {
 				vexBot.client.sendMessage({
 					to: channelID,
-					message: user + ", Error executing command\n```" + err.message + "```"
+					message: "Error executing command\n```" + err.message + "```"
 				});
 			}
 		}
