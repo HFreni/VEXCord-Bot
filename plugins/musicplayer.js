@@ -133,6 +133,7 @@ function stop() {
 
 // Start the next song if there is one.
 function nextSong() {
+	skipSet.clear();
 	console.log("stop");
 	stop();
 }
@@ -143,7 +144,7 @@ function skip(userID) {
 	skipSet.add(userID);
 
 	var skipSum = skipSet.size;
-	var onlineMembers = 0;
+	var onlineMembers = 2;
 /*
 	var serverID = "197777408198180864";  // Only one server.
 	for (var memberID in vexBot.servers[serverID].members) {
@@ -154,11 +155,11 @@ function skip(userID) {
 */
 	console.log('onlineMembers = ' + onlineMembers);
 	console.log('skipSum : ' + skipSum);
-	console.log('(onlineMembers-1 / 2) : ' + (onlineMembers / 2));
+	console.log('(onlineMembers / 2) : ' + (onlineMembers / 2));
 	console.log('Condition : ' + (skipSum > (onlineMembers / 2)));
 	console.log(skipSet);
 
-	if (skipSum > (2)) {
+	if (skipSum > onlineMembers) {
 		if (queue.length > 0) {
 			nextSong();
 		}
@@ -166,7 +167,7 @@ function skip(userID) {
 		skipSet.clear();
 	}
 }
-
+/*
 // Return the voice channel where the user is.
 function findVoiceChannelIdWhereUserIs(userID) {
 	var voiceChannel = null;
@@ -179,7 +180,7 @@ function findVoiceChannelIdWhereUserIs(userID) {
 	}
 	return voiceChannel;
 }
-
+*/
 // Join the voice channel where the user is.
 function joinChannel() {
 	currentVoiceChannel = "197818048147750912";//findVoiceChannelIdWhereUserIs(userID);
