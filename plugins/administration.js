@@ -79,9 +79,9 @@ vexBot.commands.register = function(data) {
 					data.respond("Added to Non Competitor Role!");
 				} else {
 					vexBot.client.addToRole({
-							server: "197777408198180864",
-							user: data.id,
-							role: "197836716726288387"
+						server: "197777408198180864",
+						user: data.id,
+						role: "197836716726288387"
 					});
 					data.respond("Added to VEX Member Role");
 					vexBot.client.editNickname({
