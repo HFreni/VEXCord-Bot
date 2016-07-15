@@ -91,7 +91,7 @@ function addSong(url, username, userID) {
 				youtubeSong.downloadSong(function (err) {
 					if (err) {
 						console.error(err);
-						sendMessage('@' + youtubeSong.username + ' Impossible to load ' + youtubeSong.url);
+						//sendMessage('@' + youtubeSong.username + ' Impossible to load ' + youtubeSong.url);
 					} else {
 						queue.push(youtubeSong);
 						if (currentSong == null) {
