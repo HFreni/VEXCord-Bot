@@ -56,9 +56,9 @@ vexBot.commands.register = function(data) {
 		data.respond("Sorry, you have inputted too many paramaters");
 	} else {
 		// This should do something
-		usersRef.orderByKey().on("child_added", function(snapshot) {
+		usersRef.orderByChild(data.id).on("child_added", function(snapshot) {
 			// Supposed to check user id vs snapshot id
-			if(data.id == snapshot.key) {
+			if(snapshot.val().registered) {
 				data.respond("You are already registered");
 			} else {
 				usersRef.child(userStuff).set({
@@ -109,4 +109,6 @@ vexBot.commands.roles = function(data) {
 	}
 	data.respond(vexBot.servers);
 	console.log("Post Loop");
-}
+};
+vexBot.commandUsage.roles = "";
+vexBot.commandDescs.roles = "Logs the role  IDs to the command line";
