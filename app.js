@@ -59,26 +59,16 @@ vexBot.client.on('message', function(user, userID, channelID, message, event) {
 	console.log(user + " (" + userID + ") [" + channelID + "]: " + message);
 
 	if (message.substring(0, vexBot.commandPrefix.length) == vexBot.commandPrefix) {
-		var msg = message.substring(vexBot.commandPrefix.length);
+		var msg = message.substring(vexBot.commandPrefix.length).trim();
 
-		// Mobile keyboards sometimes automatically put in an annoying space.
-		if (msg.substring(0, 1) == " ") {
-			msg = msg.substring(1);
-		}
-
-		var cmd = '';
-		while (msg.length > 0 && msg.substring(0, 1) != " ") {
-			cmd += msg.substring(0, 1);
-			msg = msg.substring(1);
-		}
+		// Grab the command from the message.
+		var cmd = msg.split(' ')[0];
 
 		// Mobile keyboards automatically capitalize
 		cmd = cmd.toLowerCase();
 
-		// Remove space after command
-		if (msg.substring(0, 1) == " ") {
-			msg = msg.substring(1);
-		}
+		// Remove command from message.
+		msg = msg.substring(cmd.length).trim();
 
 		if (cmd in vexBot.commands) {
 			console.log(user + " used \"" + cmd + "\"");
