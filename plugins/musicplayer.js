@@ -15,7 +15,9 @@ var DOWNLOAD_DIR = './musics/';
 var audioStream = null;
 var currentVoiceChannel = null;
 var currentSong = null;
-var queue       = Array();
+var queue       = new Array();
+var idleQueue   = new Array("gEbcEYbxmqQ", "R5xzaDo5Q54", "UFrDpx7zLtA", "xHRkHFxD-xY", "SgM3r8xKfGE");
+var idlePos     = 0;
 var skipSet     = new Set();
 
 function convertFlvToMp3(source_file, destination_dir, callback) {
@@ -106,18 +108,23 @@ function addSong(url, username, userID) {
 
 // Start the first song in the queue.
 function start() {
-	if (queue.length > 0) {
-		currentSong = queue[0];
-		if (currentSong && currentSong.isValid) {
-			var songPath = DOWNLOAD_DIR + currentSong.id + '.mp3';
-			audioStream.playAudioFile(songPath);
-			skipSet.clear();
-			audioStream.once('fileEnd', songEnded);
-		}
-	} else {
-		currentSong = null;
-		leaveChannel();
-	}
+  var songPath = DOWNLOAD_DIR;
+
+  if (queue.length > 0) {
+    currentSong = queue[0];
+
+    if (!currentSong || currentSong.isValid) {
+      return;
+    }
+    songPath += currentSong.id;
+  } else {
+    songPath += idleQueue[idlePos];
+    idlePos = (idlePos >= idleQueue.size) ? 0 : (idlePos + 1);
+  }
+  songPath += '.mp3';
+  audioStream.playAudioFile(songPath);
+  skipSet.clear();
+  audioStream.once('fileEnd', songEnded);
 }
 
 function songEnded() {
@@ -192,6 +199,7 @@ function joinChannel() {
 			audioStream = stream;
 		});
 	});
+  start();
 }
 
 function leaveChannel() {
@@ -216,7 +224,7 @@ vexBot.commands.play = function(data) {
 	addSong(data.message, data.name, data.id);
 }
 vexBot.commandUsage.play = "<youtube url>";
-vexBot.commandDescs.play = "Plays the audio from a YouTube video.";
+vexBot.commandDescs.play = "Plays audio from a YouTube video (or adds it to the queue).";
 
 vexBot.commands.skip = function(data) {
 	skip(data.id);
