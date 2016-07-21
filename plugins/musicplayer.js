@@ -122,9 +122,15 @@ function start() {
 		idlePos = (idlePos >= idleQueue.size) ? 0 : (idlePos + 1);
 	}
 	songPath += '.mp3';
-	audioStream.playAudioFile(songPath);
 	skipSet.clear();
-	audioStream.once('fileEnd', songEnded);
+
+	if (audioStream) {
+		audioStream.playAudioFile(songPath);
+		audioStream.once('fileEnd', songEnded);
+	} else {
+		idlePos--;
+		start();
+	}
 }
 
 function songEnded() {
@@ -199,8 +205,6 @@ function joinChannel() {
 			audioStream = stream;
 		});
 	});
-	while (!audioStream) {
-	}
 	start();
 }
 
