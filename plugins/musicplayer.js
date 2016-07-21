@@ -128,8 +128,7 @@ function start() {
 		audioStream.playAudioFile(songPath);
 		audioStream.once('fileEnd', songEnded);
 	} else {
-		idlePos--;
-		start();
+		setTimeout(start, 500);
 	}
 }
 
