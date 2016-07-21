@@ -109,6 +109,7 @@ function addSong(url, username, userID) {
 // Start the first song in the queue.
 function start() {
 	var songPath = DOWNLOAD_DIR;
+	var endFun;
 
 	if (queue.length > 0) {
 		currentSong = queue[0];
@@ -117,16 +118,21 @@ function start() {
 			return;
 		}
 		songPath += currentSong.id;
+		endFun = songEnded;
 	} else {
-		songPath += idleQueue[idlePos];
-		idlePos = (idlePos >= idleQueue.size) ? 0 : (idlePos + 1);
+		songPath += idleQueue[idlePos++];
+
+		if (idlePos >= idleQueue.length) {
+			idlePos = 0;
+		}
+		endFun = start;
 	}
 	songPath += '.mp3';
 	skipSet.clear();
 
 	if (audioStream) {
 		audioStream.playAudioFile(songPath);
-		audioStream.once('fileEnd', songEnded);
+		audioStream.once('fileEnd', endFun);
 	} else {
 		setTimeout(start, 500);
 	}
