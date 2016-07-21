@@ -108,23 +108,23 @@ function addSong(url, username, userID) {
 
 // Start the first song in the queue.
 function start() {
-  var songPath = DOWNLOAD_DIR;
+	var songPath = DOWNLOAD_DIR;
 
-  if (queue.length > 0) {
-    currentSong = queue[0];
+	if (queue.length > 0) {
+		currentSong = queue[0];
 
-    if (!currentSong || currentSong.isValid) {
-      return;
-    }
-    songPath += currentSong.id;
-  } else {
-    songPath += idleQueue[idlePos];
-    idlePos = (idlePos >= idleQueue.size) ? 0 : (idlePos + 1);
-  }
-  songPath += '.mp3';
-  audioStream.playAudioFile(songPath);
-  skipSet.clear();
-  audioStream.once('fileEnd', songEnded);
+		if (!currentSong || currentSong.isValid) {
+			return;
+		}
+		songPath += currentSong.id;
+	} else {
+		songPath += idleQueue[idlePos];
+		idlePos = (idlePos >= idleQueue.size) ? 0 : (idlePos + 1);
+	}
+	songPath += '.mp3';
+	audioStream.playAudioFile(songPath);
+	skipSet.clear();
+	audioStream.once('fileEnd', songEnded);
 }
 
 function songEnded() {
@@ -199,7 +199,9 @@ function joinChannel() {
 			audioStream = stream;
 		});
 	});
-  start();
+	while (!audioStream) {
+	}
+	start();
 }
 
 function leaveChannel() {
