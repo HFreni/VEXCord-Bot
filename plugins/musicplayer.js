@@ -112,10 +112,6 @@ function addSong(url, username, userID) {
 	}
 }
 
-function printQueue() {
-	return queue;
-}
-
 // Start the first song in the queue.
 function start() {
 	var songPath = DOWNLOAD_DIR;
@@ -253,7 +249,7 @@ vexBot.commandUsage.play = "<youtube url>";
 vexBot.commandDescs.play = "Plays audio from a YouTube video (or adds it to the queue).";
 
 vexBot.commands.queue = function(data) {
-	data.message = printQueue();
+	return queue;
 }
 
 vexBot.commands.skip = function(data) {
