@@ -113,7 +113,7 @@ function addSong(url, username, userID) {
 }
 
 function printQueue() {
-	sendMessage(queue.toString());
+	return queue;
 }
 
 // Start the first song in the queue.
@@ -253,7 +253,7 @@ vexBot.commandUsage.play = "<youtube url>";
 vexBot.commandDescs.play = "Plays audio from a YouTube video (or adds it to the queue).";
 
 vexBot.commands.queue = function(data) {
-	printQueue();
+	data.message = printQueue();
 }
 
 vexBot.commands.skip = function(data) {
