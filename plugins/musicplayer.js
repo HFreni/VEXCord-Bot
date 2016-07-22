@@ -18,6 +18,7 @@ var currentSong = null;
 var queue       = new Array();
 var idleQueue   = new Array("gEbcEYbxmqQ", "R5xzaDo5Q54", "UFrDpx7zLtA", "xHRkHFxD-xY", "SgM3r8xKfGE");
 var idlePos     = 0;
+var idle        = true;
 var skipSet     = new Set();
 
 function convertFlvToMp3(source_file, destination_dir, callback) {
@@ -69,8 +70,11 @@ function YoutubeSong(videoUrl, username, userID) {
 }
 
 function addSong(url, username, userID) {
-	joinChannel();
+	idle = false;
 
+	if (!currentChannel) {
+		joinChannel();
+	}
 	if (url && url.length > 0) {
 		var youtubeSong = new YoutubeSong(url, username, userID);
 		var exist = false;
@@ -86,11 +90,10 @@ function addSong(url, username, userID) {
 			if (exist) {
 				console.log('Music already downloaded, adding to queue... .');
 				queue.push(youtubeSong);
-/*
+
 				if (currentSong == null) {
 					start();
 				}
-*/
 			} else {  // Download music.
 				youtubeSong.downloadSong(function (err) {
 					if (err) {
@@ -98,19 +101,14 @@ function addSong(url, username, userID) {
 						//sendMessage('@' + youtubeSong.username + ' Impossible to load ' + youtubeSong.url);
 					} else {
 						queue.push(youtubeSong);
-/*
+
 						if (currentSong == null) {
 							start();
 						}
-*/
 					}
 				});
 			}
 		}
-	}
-	if (currentSong == null) {
-		nextSong();
-		start();
 	}
 }
 
@@ -172,7 +170,7 @@ function skip(userID) {
 	skipSet.add(userID);
 
 	var skipSum = skipSet.size;
-	var onlineMembers = 2;
+	var onlineMembers = 0;//2;
 /*
 	var serverID = "197777408198180864";  // Only one server.
 	for (var memberID in vexBot.servers[serverID].members) {
@@ -218,6 +216,9 @@ function joinChannel() {
 			audioStream = stream;
 		});
 	});
+	if (idle) {
+		start();
+	}
 }
 
 function leaveChannel() {
