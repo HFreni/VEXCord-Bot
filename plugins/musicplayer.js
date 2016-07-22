@@ -210,7 +210,6 @@ function joinChannel() {
 			audioStream = stream;
 		});
 	});
-	start();
 }
 
 function leaveChannel() {
