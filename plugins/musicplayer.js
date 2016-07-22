@@ -109,6 +109,7 @@ function addSong(url, username, userID) {
 		}
 	}
 	if (currentSong == null) {
+		nextSong();
 		start();
 	}
 }
