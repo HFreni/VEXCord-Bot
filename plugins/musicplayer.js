@@ -72,7 +72,7 @@ function YoutubeSong(videoUrl, username, userID) {
 function addSong(url, username, userID) {
 	idle = false;
 
-	if (!currentChannel) {
+	if (!currentVoiceChannel) {
 		joinChannel();
 	}
 	if (url && url.length > 0) {
@@ -185,7 +185,10 @@ function skip(userID) {
 	console.log('Condition : ' + (skipSum > (onlineMembers / 2)));
 	console.log(skipSet);
 
-	if (skipSum > onlineMembers) {
+	if (idle) {
+		skipSet.clear();
+		stop();
+	} else if (skipSum > onlineMembers) {
 		if (queue.length > 0) {
 			nextSong();
 		}
