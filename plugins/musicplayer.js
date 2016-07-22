@@ -86,9 +86,11 @@ function addSong(url, username, userID) {
 			if (exist) {
 				console.log('Music already downloaded, adding to queue... .');
 				queue.push(youtubeSong);
+/*
 				if (currentSong == null) {
 					start();
 				}
+*/
 			} else {  // Download music.
 				youtubeSong.downloadSong(function (err) {
 					if (err) {
@@ -96,13 +98,18 @@ function addSong(url, username, userID) {
 						//sendMessage('@' + youtubeSong.username + ' Impossible to load ' + youtubeSong.url);
 					} else {
 						queue.push(youtubeSong);
+/*
 						if (currentSong == null) {
 							start();
 						}
+*/
 					}
 				});
 			}
 		}
+	}
+	if (currentSong == null) {
+		start();
 	}
 }
 
