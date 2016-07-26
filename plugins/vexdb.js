@@ -2,7 +2,7 @@ var http = require('http');
 var unirest = require('unirest');
 
 var vexdbGet = function(url, cb) {
-	var req = unirest.get("http://api.vexdb.io/v1/" + url)
+	var req = unirest.get("http://api.vexdb.io/v1/" + url + "&apikey=shNhxcphXlIXQVE2Npeu")
 		.headers({'User-Agent': 'RoBot v1.0.0 git.io/vohPQ'})
 		.end(function(res) {
 			if (res.statusType != 2) {
