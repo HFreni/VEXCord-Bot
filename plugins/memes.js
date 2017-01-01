@@ -11,6 +11,15 @@ var memes = [
 	"Not Kyle",
 	"Vex Memes",
 	"BNS 3 Way",
+	"Rucka Rucka Ali",
+	"Hari <3",
+	"RobotC++",
+	"Grillz?",
+	"Karthik",
+	"Megamind",
+	"Not Memes",
+	"Shitty Sensors",
+	//Your welcome ;) ~Union
 ]
 
 function rand(min, max) {
